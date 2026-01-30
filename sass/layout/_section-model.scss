@@ -7,14 +7,39 @@
     flex-direction: row;
     gap: 2rem;
     justify-content: normal;
-    align-items: normal;
+    align-items: flex-start;
+    
+    img {
+        max-width: 350px;
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        border-radius: 0.55rem;
+    }
 }
 
 .model-info {
     color: map-get($colors, text-main);
     text-align: left;
-    font-size: map-get($font-sizes, models);
-    line-height: 3rem;
-    text-transform: uppercase;
-    letter-spacing: map-get($spacings, p);
+    
+    h3 {
+        font-size: map-get($font-sizes, models);
+        line-height: 1.5;
+        text-transform: uppercase;
+        letter-spacing: map-get($spacings, p);
+        margin-bottom: 1rem;
+    }
+    
+    p {
+        font-size: 14px;
+        line-height: 1.6;
+        text-transform: none;
+        letter-spacing: normal;
+        margin-bottom: 1rem;
+    }
+    
+    .price {
+        font-size: 16px;
+        font-weight: 600;
+    }
 }

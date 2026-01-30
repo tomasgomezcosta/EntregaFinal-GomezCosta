@@ -66,6 +66,93 @@ footer {
     line-height: 1rem;
 }
 
+// CARRITO - Selector y botón
+.fragrance-selector {
+    margin: 12px 0;
+    
+    select {
+        max-width: 100%;
+        font-size: 13px;
+        padding: 7px 10px;
+    }
+    
+    label {
+        font-size: 12px;
+        margin-bottom: 6px;
+    }
+}
+
+.add-to-cart-btn {
+    max-width: 100%;
+    font-size: 13px;
+    padding: 9px 16px;
+    margin-top: 12px;
+}
+
+.cart-count {
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+    top: -6px;
+    right: -6px;
+}
+
+.cart-item {
+    padding: 12px;
+    gap: 12px;
+}
+
+.cart-item-info {
+    h3 {
+        font-size: 16px;
+    }
+    
+    p {
+        font-size: 13px;
+    }
+    
+    .item-price {
+        font-size: 14px;
+    }
+}
+
+.quantity-controls {
+    button {
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
+    }
+    
+    span {
+        font-size: 14px;
+    }
+}
+
+.cart-item-total {
+    strong {
+        font-size: 18px;
+    }
+}
+
+.cart-actions {
+    flex-direction: column;
+    gap: 10px;
+    
+    button {
+        font-size: 14px;
+        padding: 12px;
+    }
+}
+
+.cart-notification {
+    top: 80px;
+    right: -200px;
+    
+    &.show {
+        right: 10px;
+    }
+}
+
 // BUNDLES
 .collections {
     h2 {

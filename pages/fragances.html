@@ -57,7 +57,7 @@
                             </svg>
                         </a>
                     </li>
-                    <li>
+                    <li class="cart-icon-wrapper">
                         <a href="cart.html" aria-label="Carrito">
                             <!-- Icono carrito -->
                             <svg width="28" height="28" fill="none" stroke="#222831" stroke-width="2" viewBox="0 0 24 24" title="Carrito">
@@ -65,7 +65,18 @@
                                 <circle cx="20" cy="21" r="1"/>
                                 <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61l1.6-8.39H6"/>
                             </svg>
+                            <span class="cart-count">0</span>
                         </a>
+                        <div class="cart-dropdown">
+                            <div class="cart-dropdown-items"></div>
+                            <div class="cart-dropdown-footer">
+                                <div class="cart-dropdown-total-wrapper">
+                                    <span>Total:</span>
+                                    <strong class="cart-dropdown-total">$0</strong>
+                                </div>
+                                <a href="cart.html" class="view-cart-btn">Ver Carrito</a>
+                            </div>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -80,31 +91,49 @@
         <hr>
         <section class="fragances-section">
             <div class="fragances">
-                <img src="../assets/WhiteFlowers-Label.png" title="White Flowers scent brings a joyful moment." alt="WhiteFlowers">
+                <a href="fragances/whiteflowers.html" title="Ver White Flowers">
+                    <img src="../assets/WhiteFlowers-Label.png" title="White Flowers scent brings a joyful moment." alt="WhiteFlowers">
+                </a>
             </div>
             <div class="fragances">
-                <img src="../assets/Lemongrass-Label.png" title="Lemongrass scent brings a fresh and uplifting aroma." alt="Lemongrass">
+                <a href="fragances/lemongrass.html" title="Ver Lemongrass">
+                    <img src="../assets/Lemongrass-Label.png" title="Lemongrass scent brings a fresh and uplifting aroma." alt="Lemongrass">
+                </a>
             </div>
             <div class="fragances">
-                <img src="../assets/Lavender-Label.png" title="Lavender scent brings a calming and relaxing experience." alt="Lavender">
+                <a href="fragances/lavender.html" title="Ver Lavender">
+                    <img src="../assets/Lavender-Label.png" title="Lavender scent brings a calming and relaxing experience." alt="Lavender">
+                </a>
             </div>
             <div class="fragances">
-                <img src="../assets/Jasmine-Label.png" title="Jasmine scent brings a romantic and soothing ambiance." alt="Jasmine">
+                <a href="fragances/jasmine.html" title="Ver Jasmine">
+                    <img src="../assets/Jasmine-Label.png" title="Jasmine scent brings a romantic and soothing ambiance." alt="Jasmine">
+                </a>
             </div>
             <div class="fragances">
-                <img src="../assets/Vanilla-Label.png" title="Vanilla scent brings a warm and comforting experience." alt="Vanilla">
+                <a href="fragances/vanilla.html" title="Ver Vanilla">
+                    <img src="../assets/Vanilla-Label.png" title="Vanilla scent brings a warm and comforting experience." alt="Vanilla">
+                </a>
             </div>
             <div class="fragances">
-                <img src="../assets/Freesias-Label.png" title="Freesias scent brings a joyful moment." alt="Freesias">
+                <a href="fragances/freesias.html" title="Ver Freesias">
+                    <img src="../assets/Freesias-Label.png" title="Freesias scent brings a joyful moment." alt="Freesias">
+                </a>
             </div>
             <div class="fragances">
-                <img src="../assets/Gardenia-Label.png" title="Gardenia scent brings a joyful moment." alt="Gardenia">
+                <a href="fragances/gardenia.html" title="Ver Gardenia">
+                    <img src="../assets/Gardenia-Label.png" title="Gardenia scent brings a joyful moment." alt="Gardenia">
+                </a>
             </div>
             <div class="fragances">
-                <img src="../assets/Coconut-Label.png" title="Coconut scent brings a tropical and refreshing experience." alt="Coconut">
+                <a href="fragances/coconut.html" title="Ver Coconut">
+                    <img src="../assets/Coconut-Label.png" title="Coconut scent brings a tropical and refreshing experience." alt="Coconut">
+                </a>
             </div>
             <div class="fragances">
-                <img src="../assets/OrangeBlossom-Label.png" title="Orange Blossom scent brings a cheerful and uplifting aroma." alt="Orange Blossom">
+                <a href="fragances/orangeblossom.html" title="Ver Orange Blossom">
+                    <img src="../assets/OrangeBlossom-Label.png" title="Orange Blossom scent brings a cheerful and uplifting aroma." alt="Orange Blossom">
+                </a>
             </div>
         </section>
     </main>
@@ -186,5 +215,6 @@
         }
     });
     </script>
+    <script src="../js/cart.js"></script>
 </body>
 </html>

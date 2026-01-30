@@ -77,44 +77,63 @@
     <!-- Main -->
     <main>
         <section class="section-headings">
-            <h2>CHECKOUT</h2>
+            <h2>Carrito de Compras</h2>
         </section>
         <hr>
-        <section class="cart-input">
-            <div>
-                <p>Revisa los productos en el carrito antes de confirmar la compra</p>
-                    <form action="login" method="post">
-                        <label for="adress">direccion:</label>
-                        <input type="text" id="adress" name="adress" required>
-                        <label for="payment-method">metodo de pago:</label>
-                        <select id="payment-method" name="payment-method">
-                            <option value="credit-card">tarjeta de crédito</option>
-                            <option value="paypal">PayPal</option>
-                            <option value="bank-transfer">transferencia</option>
-                            <option value="cash">efectivo</option>
-                        </select>
-                    </form>
+        
+        <!-- Items del carrito -->
+        <div class="cart-items-container"></div>
+        
+        <!-- Resumen del carrito -->
+        <div class="cart-summary">
+            <h3>Resumen del Pedido</h3>
+            <div class="cart-summary-details">
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span class="cart-subtotal">$0</span>
+                </div>
+                <div class="summary-row" style="display: none;">
+                    <span>Descuento (15%):</span>
+                    <span class="cart-discount">$0</span>
+                </div>
+                <div class="summary-row">
+                    <span>Envío:</span>
+                    <span class="cart-shipping">$0</span>
+                </div>
+                <div class="summary-row">
+                    <span>Impuestos (IVA 21%):</span>
+                    <span class="cart-taxes">$0</span>
+                </div>
+                <div class="summary-row total-row">
+                    <strong>Total:</strong>
+                    <strong class="cart-grand-total">$0</strong>
+                </div>
             </div>
-        </section>
-        <section class="cart-details">
-            <div class="items-list">
-                <ul>
-                    <li>Modelo A - $20000.00</li>
-                    <li>Modelo B - $25000.00</li>
-                    <li>Modelo C - $30000.00</li>
-                </ul>
+            
+            <div class="cart-actions">
+                <button class="checkout-btn" onclick="checkout()">Finalizar Compra</button>
+                <button class="clear-btn" onclick="clearCart()">Vaciar Carrito</button>
             </div>
-            <div class="cart-summary">
-                <ul>
-                    <li>Subtotal: $75000.00</li>
-                    <li>Shipping: $2000.00</li>
-                    <li>Taxes: $1200.00</li>
-                    <li>Grand total: $78200.00</li>
-                </ul>
-                <button type="button">continuar</button>
-            </div>
-        </section>
+        </div>
     </main>
+
+    <!-- Modal de Login -->
+    <div id="login-modal" class="auth-modal">
+        <div class="auth-modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Inicia sesión para finalizar tu compra</h3>
+            <form id="modal-login-form">
+                <label for="modal-email">Email:</label>
+                <input type="email" id="modal-email" name="email" autocomplete="email" required>
+                
+                <label for="modal-password">Contraseña:</label>
+                <input type="password" id="modal-password" name="password" autocomplete="current-password" required>
+                
+                <button type="submit" class="auth-btn">Iniciar Sesión</button>
+            </form>
+            <p class="modal-register-link">¿No tienes cuenta? <a href="account.html">Regístrate aquí</a></p>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer>
@@ -195,5 +214,7 @@
         }
     });
     </script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/cart.js"></script>
 </body>
 </html>
