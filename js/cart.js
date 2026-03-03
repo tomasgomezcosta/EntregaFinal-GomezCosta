@@ -1,16 +1,24 @@
-// Carrito de compras - Recuperar del localStorage
+// ============================================
+// CARRITO DE COMPRAS - SISTEMA DE E-COMMERCE
+// ============================================
+
+// Variables globales para gestión del carrito
+// Recuperar carrito del localStorage o inicializar vacío
 let cart = JSON.parse(localStorage.getItem('nocturneCart')) || [];
 
 // Preferencias del usuario - Guardar última fragancia y cantidad seleccionadas
+// Esto permite precargar los valores en los formularios para mejor experiencia
 let userPreferences = JSON.parse(localStorage.getItem('nocturneUserPreferences')) || {
     lastFragrance: '',
     lastQuantity: 1
 };
 
-// Historial de compras
+// Historial de compras del usuario
+// Almacena todas las transacciones realizadas
 let purchaseHistory = JSON.parse(localStorage.getItem('nocturnePurchaseHistory')) || [];
 
 // Mapeo de modelos a imágenes
+// Asocia cada modelo de vela con su imagen correspondiente
 const modelImages = {
     'Staccato': '../assets/model1.png',
     'Legato': '../assets/model2.png',
@@ -36,7 +44,18 @@ const fragranceImages = {
     'Orange Blossom': '../assets/OrangeBlossom-Label.png'
 };
 
-// Función para agregar vela al carrito
+// ============================================
+// FUNCIONES PRINCIPALES DEL CARRITO
+// ============================================
+
+/**
+ * Añade una vela al carrito de compras
+ * @param {string} modelName - Nombre del modelo de vela
+ * @param {number} price - Precio unitario
+ * @param {string} weight - Peso de la vela
+ * @param {string} fragrance - Fragancia seleccionada
+ * @param {number} quantity - Cantidad a agregar (por defecto 1)
+ */
 function addToCart(modelName, price, weight, fragrance, quantity = 1) {
     // Verificar si ya existe el mismo producto con la misma fragancia
     const existingItem = cart.find(cartItem => 
@@ -44,8 +63,10 @@ function addToCart(modelName, price, weight, fragrance, quantity = 1) {
     );
 
     if (existingItem) {
+        // Si existe, incrementar cantidad
         existingItem.quantity += quantity;
     } else {
+        // Si no existe, crear nuevo item
         const item = {
             id: Date.now(),
             type: 'candle',
@@ -362,10 +383,22 @@ function clearCart() {
     }
 }
 
-// Finalizar compra
+// ============================================
+// PROCESO DE COMPRA (CHECKOUT)
+// ============================================
+
+/**
+ * Inicia el proceso de finalización de compra
+ * Valida que haya productos en el carrito y que el usuario esté autenticado
+ */
 function checkout() {
+    // Validar que el carrito no esté vacío
     if (cart.length === 0) {
-        alert('Tu carrito está vacío');
+        Swal.fire({
+            icon: 'info',
+            title: 'Carrito vacío',
+            text: 'No hay productos en tu carrito'
+        });
         return;
     }
     
@@ -375,8 +408,14 @@ function checkout() {
         if (typeof showLoginModal === 'function') {
             showLoginModal();
         } else {
-            alert('Por favor, inicia sesión para finalizar tu compra');
-            window.location.href = 'account.html';
+            Swal.fire({
+                icon: 'warning',
+                title: 'Iniciar sesión',
+                text: 'Por favor, inicia sesión para finalizar tu compra',
+                confirmButtonText: 'Ir a cuenta'
+            }).then(() => {
+                window.location.href = 'account.html';
+            });
         }
         return;
     }
@@ -385,12 +424,15 @@ function checkout() {
     proceedWithCheckout();
 }
 
-// Continuar con el checkout (llamado después de login o si ya está logeado)
+/**
+ * Continúa con el checkout después de validar autenticación
+ * Procesa el pago, guarda el historial y limpia el carrito
+ */
 function proceedWithCheckout() {
     const total = calculateGrandTotal();
     const currentUserData = typeof getCurrentUser === 'function' ? getCurrentUser() : null;
     
-    // Guardar compra en el historial
+    // Crear objeto de compra con todos los detalles
     const purchase = {
         id: Date.now(),
         date: new Date().toISOString(),
@@ -406,18 +448,25 @@ function proceedWithCheckout() {
     purchaseHistory.push(purchase);
     savePurchaseHistory();
     
-    alert(`¡Compra finalizada!\n\nTotal: $${total.toLocaleString('es-AR')}\n\n¡Gracias por tu compra!`);
-    
-    // Vaciar el carrito
-    cart = [];
-    saveCart();
-    updateCartUI();
-    updateDropdownCart();
-    
-    // Redirigir al index
-    setTimeout(() => {
+    Swal.fire({
+        icon: 'success',
+        title: '¡Compra finalizada!',
+        html: `
+            <p>Total: <strong>$${total.toLocaleString('es-AR')}</strong></p>
+            <p>¡Gracias por tu compra!</p>
+            <p>Recibirás un email de confirmación pronto.</p>
+        `,
+        confirmButtonText: 'Aceptar'
+    }).then(() => {
+        // Vaciar el carrito
+        cart = [];
+        saveCart();
+        updateCartUI();
+        updateDropdownCart();
+        
+        // Redirigir al index
         window.location.href = '../index.html';
-    }, 1500);
+    });
 }
 
 // Inicializar al cargar la página
@@ -444,7 +493,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Resetear campos al cargar la página (para fragancias)
     const sizeSelect = document.getElementById('size-select');
-    const fragranceQuantityInput = document.getElementById('fragrance-quantity-input');
+    const fragranceQuantityInput = document.getElementById('quantity-input');
     
     if (sizeSelect) {
         sizeSelect.value = '';
@@ -467,16 +516,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 const selectedOption = sizeSelect.options[sizeSelect.selectedIndex];
                 const size = selectedOption.value;
                 const price = parseInt(selectedOption.dataset.price);
-                const quantityInput = document.getElementById('fragrance-quantity-input');
+                const quantityInput = document.getElementById('quantity-input');
                 const quantity = quantityInput ? parseInt(quantityInput.value) : 1;
 
                 if (!size) {
-                    alert('Por favor, selecciona un tamaño');
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Tamaño requerido',
+                        text: 'Por favor, selecciona un tamaño'
+                    });
                     return;
                 }
 
                 if (quantity < 1) {
-                    alert('La cantidad debe ser al menos 1');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Cantidad inválida',
+                        text: 'La cantidad debe ser al menos 1'
+                    });
                     return;
                 }
 
@@ -500,12 +557,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 const quantity = quantityInput ? parseInt(quantityInput.value) : 1;
 
                 if (!selectedFragrance) {
-                    alert('Por favor, selecciona una fragancia');
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Fragancia requerida',
+                        text: 'Por favor, selecciona una fragancia'
+                    });
                     return;
                 }
 
                 if (quantity < 1) {
-                    alert('La cantidad debe ser al menos 1');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Cantidad inválida',
+                        text: 'La cantidad debe ser al menos 1'
+                    });
                     return;
                 }
 

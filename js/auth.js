@@ -16,34 +16,54 @@ function saveCurrentUser() {
 function registerUser(username, email, password) {
     // Validar usuario
     if (username.length < 3) {
-        alert('El usuario debe tener al menos 3 caracteres');
+        Swal.fire({
+            icon: 'error',
+            title: 'Usuario inválido',
+            text: 'El usuario debe tener al menos 3 caracteres'
+        });
         return false;
     }
 
     // Validar email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-        alert('Por favor, ingresa un email válido');
+        Swal.fire({
+            icon: 'error',
+            title: 'Email inválido',
+            text: 'Por favor, ingresa un email válido'
+        });
         return false;
     }
 
     // Validar contraseña
     if (password.length < 6) {
-        alert('La contraseña debe tener al menos 6 caracteres');
+        Swal.fire({
+            icon: 'error',
+            title: 'Contraseña débil',
+            text: 'La contraseña debe tener al menos 6 caracteres'
+        });
         return false;
     }
 
     // Verificar si el usuario ya existe
     const existingUser = users.find(user => user.email === email);
     if (existingUser) {
-        alert('Este email ya está registrado');
+        Swal.fire({
+            icon: 'warning',
+            title: 'Email en uso',
+            text: 'Este email ya está registrado'
+        });
         return false;
     }
 
     // Verificar si el nombre de usuario ya existe
     const existingUsername = users.find(user => user.username === username);
     if (existingUsername) {
-        alert('Este nombre de usuario ya está en uso');
+        Swal.fire({
+            icon: 'warning',
+            title: 'Usuario en uso',
+            text: 'Este nombre de usuario ya está en uso'
+        });
         return false;
     }
 
@@ -58,7 +78,11 @@ function registerUser(username, email, password) {
 
     users.push(newUser);
     saveUsers();
-    alert('¡Usuario registrado exitosamente! Ya puedes iniciar sesión.');
+    Swal.fire({
+        icon: 'success',
+        title: '¡Registro exitoso!',
+        text: 'Ya puedes iniciar sesión con tu cuenta'
+    });
     return true;
 }
 
@@ -67,6 +91,9 @@ function loginUser(email, password) {
     const user = users.find(u => u.email === email && u.password === password);
     
     if (user) {
+        // Guardar email para precarga en próximos accesos
+        localStorage.setItem('nocturneLastEmail', email);
+        
         currentUser = {
             id: user.id,
             username: user.username,
@@ -75,19 +102,49 @@ function loginUser(email, password) {
         };
         saveCurrentUser();
         updateAuthUI();
+        Swal.fire({
+            icon: 'success',
+            title: '¡Bienvenido!',
+            text: `Hola ${user.username}`,
+            timer: 2000,
+            showConfirmButton: false
+        });
         return true;
     } else {
-        alert('Email o contraseña incorrectos');
+        Swal.fire({
+            icon: 'error',
+            title: 'Error de acceso',
+            text: 'Email o contraseña incorrectos'
+        });
         return false;
     }
 }
 
 // Cerrar sesión
 function logoutUser() {
-    currentUser = null;
-    localStorage.removeItem('nocturneCurrentUser');
-    updateAuthUI();
-    alert('Sesión cerrada exitosamente');
+    Swal.fire({
+        title: '¿Cerrar sesión?',
+        text: "¿Estás seguro de que quieres salir?",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, salir',
+        cancelButtonText: 'Cancelar',
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            currentUser = null;
+            localStorage.removeItem('nocturneCurrentUser');
+            updateAuthUI();
+            Swal.fire({
+                icon: 'success',
+                title: 'Sesión cerrada',
+                text: '¡Hasta pronto!',
+                timer: 1500,
+                showConfirmButton: false
+            });
+        }
+    });
 }
 
 // Verificar si hay usuario logeado
@@ -175,7 +232,16 @@ function proceedWithCheckout() {
 
 // Inicializar al cargar la página
 document.addEventListener('DOMContentLoaded', function() {
+    // Actualizar UI según estado de autenticación
     updateAuthUI();
+
+    // Precargar último email usado en localStorage (si existe)
+    const lastEmail = localStorage.getItem('nocturneLastEmail');
+    const loginEmailInput = document.getElementById('login-email');
+    if (lastEmail && loginEmailInput) {
+        loginEmailInput.value = lastEmail;
+        loginEmailInput.placeholder = 'Email guardado';
+    }
 
     // Formulario de registro
     const registerForm = document.getElementById('register-form');
@@ -188,7 +254,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const confirmPassword = document.getElementById('register-confirm-password').value;
 
             if (password !== confirmPassword) {
-                alert('Las contraseñas no coinciden');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Las contraseñas no coinciden'
+                });
                 return;
             }
 

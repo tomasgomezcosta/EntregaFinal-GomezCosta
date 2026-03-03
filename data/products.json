@@ -1,0 +1,177 @@
+{
+  "candles": [
+    {
+      "id": 1,
+      "name": "Staccato",
+      "price": 25000,
+      "weight": "250g",
+      "description": "Vela de soja premium de 250g con acabado mate. Duración aproximada de 35 horas. Recipiente de vidrio reutilizable.",
+      "image": "../assets/model1.png"
+    },
+    {
+      "id": 2,
+      "name": "Legato",
+      "price": 32000,
+      "weight": "350g",
+      "description": "Velón artesanal de 350g con doble mecha. Duración de 45 horas. Vidrio esmerilado de diseño exclusivo.",
+      "image": "../assets/model2.png"
+    },
+    {
+      "id": 3,
+      "name": "Tenuto",
+      "price": 42000,
+      "weight": "500g",
+      "description": "Vela jumbo de 500g ideal para espacios amplios. Duración extendida de 60 horas. Presentación en recipiente de cerámica.",
+      "image": "../assets/model3.png"
+    },
+    {
+      "id": 4,
+      "name": "Crescendo",
+      "price": 56000,
+      "weight": "650g",
+      "description": "Modelo premium de 650g con triple mecha para distribución uniforme del aroma. Duración de 75 horas.",
+      "image": "../assets/model4.png"
+    },
+    {
+      "id": 5,
+      "name": "Fermata",
+      "price": 68000,
+      "weight": "900g",
+      "description": "Velón grande de 900g perfecto para decoración. 90 horas de duración. Recipiente de vidrio tallado a mano.",
+      "image": "../assets/model5.png"
+    },
+    {
+      "id": 6,
+      "name": "Fortissimo",
+      "price": 85000,
+      "weight": "1000g",
+      "description": "Vela XXL de 1kg con fragancia de larga duración. 100 horas de combustión. Acabado premium en cerámica esmaltada.",
+      "image": "../assets/model6.png"
+    },
+    {
+      "id": 7,
+      "name": "Maestoso",
+      "price": 120000,
+      "weight": "1100g",
+      "description": "Velón imperial de 1100g de edición limitada. Mezcla exclusiva de cera de soja y cera de abeja natural. 110 horas.",
+      "image": "../assets/model7.png"
+    },
+    {
+      "id": 8,
+      "name": "Brillante",
+      "price": 28000,
+      "weight": "300g",
+      "description": "Vela compacta de 300g con acabado brillante. Mecha de algodón premium. Duración de 40 horas.",
+      "image": "../assets/model8.png"
+    },
+    {
+      "id": 9,
+      "name": "Grandioso",
+      "price": 95000,
+      "weight": "1200g",
+      "description": "Vela maestra de 1200g con sistema de triple mecha. 120 horas de duración excepcional.",
+      "image": "../assets/model9.png"
+    }
+  ],
+  "fragrances": [
+    {
+      "id": 1,
+      "name": "White Flowers",
+      "description": "Fragancia fresca y delicada con notas florales blancas. Combina jazmín, azahar y lirio para crear un aroma sofisticado y envolvente.",
+      "sizes": [
+        {"size": "50ml", "price": 10000},
+        {"size": "100ml", "price": 19000},
+        {"size": "250ml", "price": 42000}
+      ],
+      "image": "../assets/WhiteFlowers-Label.png"
+    },
+    {
+      "id": 2,
+      "name": "Lemongrass",
+      "description": "Aceite esencial cítrico revitalizante con notas herbales de limón. Perfecto para energizar espacios y purificar ambientes.",
+      "sizes": [
+        {"size": "50ml", "price": 10000},
+        {"size": "100ml", "price": 19000},
+        {"size": "250ml", "price": 42000}
+      ],
+      "image": "../assets/Lemongrass-Label.png"
+    },
+    {
+      "id": 3,
+      "name": "Lavender",
+      "description": "Esencia clásica de lavanda francesa. Su aroma relajante promueve la calma y el bienestar, ideal para dormitorios y espacios de meditación.",
+      "sizes": [
+        {"size": "50ml", "price": 10000},
+        {"size": "100ml", "price": 19000},
+        {"size": "250ml", "price": 42000}
+      ],
+      "image": "../assets/Lavender-Label.png"
+    },
+    {
+      "id": 4,
+      "name": "Jasmine",
+      "description": "Fragancia floral exótica e intensa con notas de jazmín puro. Su aroma dulce y sensual aporta calidez y sofisticación.",
+      "sizes": [
+        {"size": "50ml", "price": 10000},
+        {"size": "100ml", "price": 19000},
+        {"size": "250ml", "price": 42000}
+      ],
+      "image": "../assets/Jasmine-Label.png"
+    },
+    {
+      "id": 5,
+      "name": "Vanilla",
+      "description": "Fragancia dulce y reconfortante con notas cremosas de vainilla natural. Su aroma cálido crea espacios acogedores y hogareños.",
+      "sizes": [
+        {"size": "50ml", "price": 10000},
+        {"size": "100ml", "price": 19000},
+        {"size": "250ml", "price": 42000}
+      ],
+      "image": "../assets/Vanilla-Label.png"
+    },
+    {
+      "id": 6,
+      "name": "Freesias",
+      "description": "Fragancia floral delicada y fresca con toques de fresia primaveral. Aroma ligero y alegre perfecto para cualquier ocasión.",
+      "sizes": [
+        {"size": "50ml", "price": 10000},
+        {"size": "100ml", "price": 19000},
+        {"size": "250ml", "price": 42000}
+      ],
+      "image": "../assets/Freesias-Label.png"
+    },
+    {
+      "id": 7,
+      "name": "Gardenia",
+      "description": "Esencia floral cremosa y lujosa con notas de gardenia. Su aroma intenso y elegante transforma cualquier ambiente en un oasis de tranquilidad.",
+      "sizes": [
+        {"size": "50ml", "price": 10000},
+        {"size": "100ml", "price": 19000},
+        {"size": "250ml", "price": 42000}
+      ],
+      "image": "../assets/Gardenia-Label.png"
+    },
+    {
+      "id": 8,
+      "name": "Coconut",
+      "description": "Fragancia tropical dulce con notas de coco cremoso. Evoca recuerdos de playas paradisíacas y vacaciones tropicales.",
+      "sizes": [
+        {"size": "50ml", "price": 10000},
+        {"size": "100ml", "price": 19000},
+        {"size": "250ml", "price": 42000}
+      ],
+      "image": "../assets/Coconut-Label.png"
+    },
+    {
+      "id": 9,
+      "name": "Orange Blossom",
+      "description": "Aroma fresco y cítrico con notas florales de azahar. Mezcla perfecta entre dulzor y frescura que revitaliza cualquier espacio.",
+      "sizes": [
+        {"size": "50ml", "price": 10000},
+        {"size": "100ml", "price": 19000},
+        {"size": "250ml", "price": 42000}
+      ],
+      "image": "../assets/OrangeBlossom-Label.png"
+    }
+  ]
+}
