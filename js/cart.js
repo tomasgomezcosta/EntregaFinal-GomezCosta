@@ -44,6 +44,26 @@ const fragranceImages = {
     'Orange Blossom': '../assets/OrangeBlossom-Label.png'
 };
 
+// Función para obtener la ruta absoluta de la imagen
+// Detecta la profundidad de la página actual y ajusta la ruta
+function getAbsoluteImagePath(relativePath) {
+    // Obtener la ruta actual
+    const currentPath = window.location.pathname;
+    
+    // Contar cuántos niveles de profundidad tiene la URL
+    const depth = currentPath.split('/').filter(part => part && part !== 'index.html').length - 1;
+    
+    // Si estamos en la raíz (index.html) o en /pages/
+    if (depth === 0 || currentPath.includes('index.html')) {
+        return relativePath.replace('../', './');
+    } else if (depth === 1 || (currentPath.includes('/pages/') && !currentPath.includes('/pages/Models/') && !currentPath.includes('/pages/fragances/'))) {
+        return relativePath;
+    } else {
+        // Para páginas dentro de subcarpetas (Models/, fragances/)
+        return relativePath;
+    }
+}
+
 // ============================================
 // FUNCIONES PRINCIPALES DEL CARRITO
 // ============================================
@@ -83,7 +103,13 @@ function addToCart(modelName, price, weight, fragrance, quantity = 1) {
     saveCart();
     updateCartUI();
     updateDropdownCart();
-    showAddedNotification();
+    showAddedNotification({
+        type: 'candle',
+        name: modelName,
+        fragrance: fragrance,
+        quantity: quantity,
+        image: modelImages[modelName] || '../assets/model1.png'
+    });
 }
 
 // Función para agregar fragancia al carrito
@@ -111,7 +137,13 @@ function addFragranceToCart(fragranceName, size, price, quantity = 1) {
     saveCart();
     updateCartUI();
     updateDropdownCart();
-    showAddedNotification();
+    showAddedNotification({
+        type: 'fragrance',
+        name: fragranceName,
+        size: size,
+        quantity: quantity,
+        image: fragranceImages[fragranceName] || '../assets/Lemongrass-Label.png'
+    });
 }
 
 // Guardar carrito en localStorage
@@ -197,22 +229,70 @@ function updateDropdownCart() {
 }
 
 // Mostrar notificación de producto agregado
-function showAddedNotification() {
-    const notification = document.createElement('div');
-    notification.className = 'cart-notification';
-    notification.innerHTML = `
-        <p>✓ Producto agregado al carrito</p>
+function showAddedNotification(product) {
+    // Si no se proporciona información del producto, usar notificación simple
+    if (!product) {
+        const notification = document.createElement('div');
+        notification.className = 'cart-notification';
+        notification.innerHTML = `
+            <p>✓ Producto agregado al carrito</p>
+        `;
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 100);
+
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => notification.remove(), 300);
+        }, 2000);
+        return;
+    }
+
+    // Obtener la ruta correcta de la imagen
+    const imagePath = getAbsoluteImagePath(product.image);
+
+    // Crear el HTML para mostrar en la notificación
+    let htmlContent = `
+        <div style="text-align: center;">
+            <img src="${imagePath}" alt="${product.name}" 
+                 style="max-width: 150px; height: auto; margin: 10px auto; border-radius: 8px; display: block;" 
+                 onerror="this.style.display='none'">
+            <h3 style="margin: 10px 0; color: #333;">${product.name}</h3>
     `;
-    document.body.appendChild(notification);
 
-    setTimeout(() => {
-        notification.classList.add('show');
-    }, 100);
+    if (product.type === 'candle' && product.fragrance) {
+        htmlContent += `<p style="margin: 5px 0; color: #666;">Fragancia: <strong>${product.fragrance}</strong></p>`;
+    } else if (product.type === 'fragrance' && product.size) {
+        htmlContent += `<p style="margin: 5px 0; color: #666;">Tamaño: <strong>${product.size}</strong></p>`;
+    }
 
-    setTimeout(() => {
-        notification.classList.remove('show');
-        setTimeout(() => notification.remove(), 300);
-    }, 2000);
+    htmlContent += `
+            <p style="margin: 5px 0; color: #666;">Cantidad: <strong>${product.quantity}</strong></p>
+        </div>
+    `;
+
+    // Usar SweetAlert2 para mostrar la notificación
+    Swal.fire({
+        title: '¡Agregado al carrito!',
+        html: htmlContent,
+        icon: 'success',
+        timer: 3000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+        position: 'center',
+        backdrop: true,
+        showClass: {
+            popup: 'animate__animated animate__zoomIn animate__faster'
+        },
+        hideClass: {
+            popup: 'animate__animated animate__zoomOut animate__faster'
+        },
+        customClass: {
+            popup: 'cart-notification-popup'
+        }
+    });
 }
 
 // Eliminar item del carrito
