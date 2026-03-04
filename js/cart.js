@@ -257,19 +257,19 @@ function showAddedNotification(product) {
     let htmlContent = `
         <div style="text-align: center;">
             <img src="${imagePath}" alt="${product.name}" 
-                 style="max-width: 150px; height: auto; margin: 10px auto; border-radius: 8px; display: block;" 
+                 style="max-width: 120px; max-height: 120px; width: auto; height: auto; margin: 15px auto; border-radius: 8px; display: block; object-fit: contain;" 
                  onerror="this.style.display='none'">
-            <h3 style="margin: 10px 0; color: #333;">${product.name}</h3>
+            <h3 style="margin: 15px 0 10px 0; color: #333; font-size: 1.3em;">${product.name}</h3>
     `;
 
     if (product.type === 'candle' && product.fragrance) {
-        htmlContent += `<p style="margin: 5px 0; color: #666;">Fragancia: <strong>${product.fragrance}</strong></p>`;
+        htmlContent += `<p style="margin: 8px 0; color: #666; font-size: 1em;">Fragancia: <strong>${product.fragrance}</strong></p>`;
     } else if (product.type === 'fragrance' && product.size) {
-        htmlContent += `<p style="margin: 5px 0; color: #666;">Tamaño: <strong>${product.size}</strong></p>`;
+        htmlContent += `<p style="margin: 8px 0; color: #666; font-size: 1em;">Tamaño: <strong>${product.size}</strong></p>`;
     }
 
     htmlContent += `
-            <p style="margin: 5px 0; color: #666;">Cantidad: <strong>${product.quantity}</strong></p>
+            <p style="margin: 8px 0; color: #666; font-size: 1em;">Cantidad: <strong>${product.quantity}</strong></p>
         </div>
     `;
 
@@ -283,15 +283,8 @@ function showAddedNotification(product) {
         showConfirmButton: false,
         position: 'center',
         backdrop: true,
-        showClass: {
-            popup: 'animate__animated animate__zoomIn animate__faster'
-        },
-        hideClass: {
-            popup: 'animate__animated animate__zoomOut animate__faster'
-        },
-        customClass: {
-            popup: 'cart-notification-popup'
-        }
+        width: '400px',
+        padding: '20px'
     });
 }
 
